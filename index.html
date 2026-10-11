@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard IoT - Telemetría Hídrica</title>
+    <style>
+        body { background-color: #121212; color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 40px; }
+        .header { text-align: center; padding: 10px; border-bottom: 2px solid #00c853; margin-bottom: 30px; }
+        .container { display: flex; justify-content: space-around; flex-wrap: wrap; }
+        .card { background-color: #1e1e1e; border-radius: 10px; padding: 30px; margin: 10px; width: 25%; text-align: center; box-shadow: 0 8px 16px rgba(0,0,0,0.5); }
+        .value { font-size: 3.5em; font-weight: bold; margin: 15px 0; }
+        .color-green { color: #00e676; }
+        .color-blue { color: #29b6f6; }
+        .alert-card { border: 2px solid #ff1744; }
+        .status-danger { background-color: #ff1744; color: white; padding: 10px; border-radius: 8px; font-size: 1.8em; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        p { color: #aaaaaa; font-size: 1.1em; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Centro de Control IoT - Telemetría Hídrica (Chía)</h1>
+        <p style="font-size: 1.2em;">ID Nodo: ESP32-CHIA-01 &nbsp; | &nbsp; Conexión: <span style="color:#00e676; font-weight:bold;">En línea (MQTT)</span></p>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h3>Caudal Instantáneo</h3>
+            <div class="value color-green">0.35 <span style="font-size: 0.3em;">L/min</span></div>
+            <p>Sensor YF-S201</p>
+        </div>
+        <div class="card">
+            <h3>Volumen Acumulado</h3>
+            <div class="value color-blue">142.5 <span style="font-size: 0.3em;">Litros</span></div>
+            <p>Total del día</p>
+        </div>
+        <div class="card alert-card">
+            <h3>Estado del Sistema</h3>
+            <div class="value status-danger" style="margin-top: 30px;">¡ALERTA DE FUGA!</div>
+            <p style="color: #ff1744; font-weight:bold; margin-top:15px;">Flujo continuo > 40 min</p>
+        </div>
+    </div>
+</body>
+</html>
