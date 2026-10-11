@@ -159,7 +159,7 @@
             <div style="margin-top: 20px;">
                 <div class="status-badge" id="statusBadge">NORMAL</div>
             </div>
-            <div class="timer-info" id="timerInfo">Flujo continuo: 0s / 10s (Simulado)</div>
+            <div class="timer-info" id="timerInfo">Sistema en reposo</div>
         </div>
     </div>
 
@@ -176,7 +176,7 @@
 
     <!-- LÓGICA DE PROGRAMACIÓN (JAVASCRIPT) -->
     <script>
-        // DICCIONARIO DE INFORMACIÓN TÉCNICA (Lo que sale al presionar la i)
+        // DICCIONARIO DE INFORMACIÓN TÉCNICA
         const descripciones = {
             'tuberia': {
                 title: "🚰 Captación Hidráulica",
@@ -218,18 +218,19 @@
             document.getElementById('infoModal').style.display = 'none';
         }
 
-        // Cierra el modal si se hace clic afuera de la caja
         window.onclick = function(event) {
             let modal = document.getElementById('infoModal');
-            if (event.target == modal) {
-                closeInfo();
-            }
+            if (event.target == modal) { closeInfo(); }
         }
 
-        // LOGICA DEL SIMULADOR
-        let caudal = 0; let volumen = 142.5; let tiempoContinuo = 0;
-        let limiteFugaSimulada = 10; let isAlarmaActiva = false;
+        // LÓGICA DEL SIMULADOR
+        let caudal = 0; 
+        let volumen = 142.5; 
+        let tiempoContinuo = 0;
+        let limiteFugaSimulada = 10; 
+        let isAlarmaActiva = false;
         let audioCtx;
+        let normalTimer; // Temporizador para el uso normal
 
         function reproducirBuzzer() {
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -239,7 +240,7 @@
             const gainNode = audioCtx.createGain();
             
             oscillator.type = 'square';
-            oscillator.frequency.value = 2500; // 2.5 kHz
+            oscillator.frequency.value = 2500; 
             
             gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
@@ -251,10 +252,29 @@
             oscillator.stop(audioCtx.currentTime + 0.3);
         }
 
-        function simularNormal() { caudal = 8.5; actualizarUI(); }
-        function simularFuga() { caudal = 0.35; actualizarUI(); }
+        // NUEVAS FUNCIONES DE SIMULACIÓN CORREGIDAS
+        function simularNormal() {
+            clearTimeout(normalTimer); // Reinicia si ya estaba corriendo
+            caudal = 8.5; // Simula abrir la llave (ej. lavarse las manos)
+            actualizarUI();
+            
+            // Cierra la llave automáticamente a los 4 segundos
+            normalTimer = setTimeout(() => {
+                detenerFlujo();
+            }, 4000);
+        }
+
+        function simularFuga() {
+            clearTimeout(normalTimer); // Cancela el cierre automático si estaba activo
+            caudal = 0.35; // Goteo continuo
+            actualizarUI();
+        }
+
         function detenerFlujo() {
-            caudal = 0; tiempoContinuo = 0; isAlarmaActiva = false;
+            clearTimeout(normalTimer);
+            caudal = 0; 
+            tiempoContinuo = 0; 
+            isAlarmaActiva = false;
             document.getElementById("alertCard").classList.remove("alert-active");
             document.getElementById("statusBadge").className = "status-badge";
             document.getElementById("statusBadge").innerText = "NORMAL";
@@ -276,7 +296,8 @@
                 document.getElementById("wifiSignal").classList.remove("wifi-active");
             }
 
-            if (caudal >= 0.30 && tiempoContinuo >= limiteFugaSimulada) {
+            if (caudal >= 0.30 && tiempoContinuo >= limiteFugaSimulada && caudal < 8.0) {
+                // Solo dispara alarma si es el escenario de fuga (caudal pequeño continuo)
                 if (!isAlarmaActiva) {
                     isAlarmaActiva = true;
                     document.getElementById("alertCard").classList.add("alert-active");
@@ -290,11 +311,18 @@
             document.getElementById("volumenVal").innerText = volumen.toFixed(2);
             document.getElementById("freqLabel").innerText = frecuenciaHz.toFixed(1) + " Hz";
             
-            if(caudal > 0) {
+            // Textos informativos de estado
+            if(caudal === 8.5) {
+                document.getElementById("timerInfo").innerText = `Uso legítimo detectado. Auto-cierre en 4s...`;
+                document.getElementById("timerInfo").style.color = "var(--blue)";
+            } else if (caudal === 0.35) {
                 document.getElementById("timerInfo").innerText = `Flujo continuo: ${tiempoContinuo}s / ${limiteFugaSimulada}s`;
+                document.getElementById("timerInfo").style.color = "var(--yellow)";
             } else {
                 document.getElementById("timerInfo").innerText = `Sistema en reposo`;
+                document.getElementById("timerInfo").style.color = "var(--text-muted)";
             }
+
         }, 1000);
 
         actualizarUI();
