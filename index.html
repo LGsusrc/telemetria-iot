@@ -16,27 +16,40 @@
             --text-muted: #aaaaaa;
         }
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        h1, h3 { margin: 0 0 10px 0; display: flex; align-items: center; justify-content: center; gap: 10px;}
         
-        .header { text-align: center; width: 100%; border-bottom: 2px solid var(--green); padding-bottom: 10px; margin-bottom: 20px; }
+        /* FONDO ESTILO PLANO DE INGENIERÍA (BLUEPRINT) */
+        body { 
+            background-color: var(--bg-color); 
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-main); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; 
+        }
+        
+        h1, h3 { margin: 0 0 10px 0; display: flex; align-items: center; justify-content: center; gap: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);}
+        
+        .header { text-align: center; width: 100%; border-bottom: 2px solid var(--green); padding-bottom: 15px; margin-bottom: 20px; background: rgba(18,18,18,0.8); border-radius: 10px;}
         .badge { background: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.9em; margin: 0 5px; border: 1px solid #555;}
         
-        .info-btn { display: inline-flex; align-items: center; justify-content: center; background: #444; color: #fff; border-radius: 50%; width: 22px; height: 22px; font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.3s; border: 1px solid #777; font-family: serif; position: absolute; top: 10px; right: 10px;}
+        /* PLACA DE AUTORÍA */
+        .author-badge {
+            display: inline-block; margin-top: 15px; padding: 8px 20px; background: rgba(41, 182, 246, 0.1); border: 1px solid var(--blue); color: var(--blue); border-radius: 20px; font-size: 0.95em; font-weight: bold; letter-spacing: 1px; box-shadow: 0 0 10px rgba(41, 182, 246, 0.2);
+        }
+
+        .info-btn { display: inline-flex; align-items: center; justify-content: center; background: #444; color: #fff; border-radius: 50%; width: 22px; height: 22px; font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.3s; border: 1px solid #777; font-family: serif; position: absolute; top: 10px; right: 10px; z-index: 10;}
         .info-btn:hover { background: var(--blue); border-color: var(--blue); box-shadow: 0 0 10px var(--blue); transform: scale(1.1);}
 
         /* CONTROLES */
         .controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center;}
         button { padding: 12px 20px; font-size: 1em; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.3);}
-        button:hover { transform: scale(1.05); }
+        button:hover { transform: scale(1.05); box-shadow: 0 6px 10px rgba(0,0,0,0.5);}
         .btn-normal { background-color: var(--blue); color: #000; }
         .btn-leak { background-color: var(--yellow); color: #000; }
         .btn-stop { background-color: #555; color: white; }
 
         /* PLANO DE LA CASA */
-        .house-blueprint { display: grid; grid-template-columns: 1fr 1.5fr 1fr; grid-template-rows: auto auto; gap: 15px; width: 100%; max-width: 1000px; margin-bottom: 30px; }
+        .house-blueprint { display: grid; grid-template-columns: 1fr 1.5fr 1fr; grid-template-rows: auto auto; gap: 15px; width: 100%; max-width: 1050px; margin-bottom: 30px; }
         
-        .zone { background: var(--card-bg); border: 2px dashed #444; border-radius: 12px; padding: 20px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: 0.3s;}
+        .zone { background: rgba(30, 30, 30, 0.9); border: 2px dashed #444; border-radius: 12px; padding: 20px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: 0.3s; backdrop-filter: blur(4px);}
         .zone-title { font-size: 0.85em; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; width: 100%; border-bottom: 1px solid #333; padding-bottom: 5px;}
         .zone-icon { font-size: 3.5em; margin: 10px 0; }
         
@@ -55,30 +68,33 @@
         @keyframes flowAnim { from { transform: translateX(-20px); } to { transform: translateX(0); } }
 
         /* DASHBOARD */
-        .dashboard { display: flex; gap: 20px; width: 100%; max-width: 1000px; }
-        .card { background-color: var(--card-bg); border-radius: 12px; padding: 20px; flex: 1; text-align: center; box-shadow: 0 8px 16px rgba(0,0,0,0.5); border: 1px solid #333; position: relative;}
+        .dashboard { display: flex; gap: 20px; width: 100%; max-width: 1050px; }
+        .card { background-color: rgba(30, 30, 30, 0.9); border-radius: 12px; padding: 20px; flex: 1; text-align: center; box-shadow: 0 8px 16px rgba(0,0,0,0.5); border: 1px solid #333; position: relative;}
         .value { font-size: 2.8em; font-weight: bold; margin: 10px 0; font-variant-numeric: tabular-nums; }
         .color-green { color: var(--green); }
         .color-blue { color: var(--blue); }
         .status-badge { background-color: var(--green); padding: 8px; border-radius: 8px; font-size: 1.2em; font-weight: bold; color: #000; margin-top:10px;}
         .status-danger { background-color: var(--red); color: white; }
         .timer-info { font-size: 0.85em; color: var(--yellow); margin-top: 10px; height: 20px;}
+        .waste-tracker { font-size: 0.9em; color: var(--red); font-weight: bold; margin-top: 5px; animation: wifiBlink 1s infinite alternate; display: none;}
 
         /* MODAL */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(5px);}
-        .modal { background: #222; padding: 30px; border-radius: 12px; max-width: 550px; width: 90%; border: 1px solid var(--blue); position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); animation: slideUp 0.3s ease-out;}
+        .modal { background: #1a1a1a; padding: 30px; border-radius: 12px; max-width: 550px; width: 90%; border: 1px solid var(--blue); position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); animation: slideUp 0.3s ease-out;}
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #aaa; transition: 0.2s;}
         .close-btn:hover { color: var(--red); }
         .modal-title { color: var(--blue); margin-top: 0; border-bottom: 1px solid #444; padding-bottom: 10px; font-size: 1.5em;}
         .modal-body { color: #ddd; line-height: 1.6; margin-top: 15px; font-size: 1.05em; text-align: justify;}
         
         @keyframes slideUp { from { transform: translateY(30px); opacity: 0;} to { transform: translateY(0); opacity: 1;} }
+        @keyframes wifiBlink { 0% { opacity: 0.6; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>Contexto Físico e Interactivo - Proyecto IoT Chía</h1>
+        <h1>Centro de Control IoT - Telemetría Hídrica Chía</h1>
+        <div class="author-badge">👨‍💻 Diseño y Desarrollo Individual: Jesús Rojas (Grupo 413)</div>
         <div style="margin-top: 15px;">
             <span class="badge">📍 Nodo: ESP32-CHIA-01</span>
             <span class="badge" id="wifiBadge">📡 Cloud MQTT: <span style="color:var(--green)">Conectado</span></span>
@@ -106,7 +122,7 @@
         </div>
 
         <!-- ZONA 2: PUNTO DE CONTROL IOT -->
-        <div class="zone" id="zoneIoT" style="border: 2px solid var(--blue);">
+        <div class="zone" id="zoneIoT" style="border: 2px solid var(--blue); box-shadow: 0 0 10px rgba(41, 182, 246, 0.3);">
             <div class="info-btn" onclick="openInfo('iot')">i</div>
             <div class="zone-title">Entrada Vivienda (Caja Estanca)</div>
             <div style="display: flex; gap: 15px; align-items: center;">
@@ -177,7 +193,8 @@
         <div class="card" id="alertCard">
             <h3>Centro de Decisión Algorítmica</h3>
             <div class="status-badge" id="statusBadge">SISTEMA EN REPOSO</div>
-            <div class="timer-info" id="timerInfo">Monitoreando...</div>
+            <div class="timer-info" id="timerInfo">Monitoreando red hidráulica...</div>
+            <div class="waste-tracker" id="wasteTracker">Desperdicio actual: 0.00 Litros</div>
         </div>
     </div>
 
@@ -193,12 +210,12 @@
     <!-- LÓGICA DE PROGRAMACIÓN (JAVASCRIPT) -->
     <script>
         const descripciones = {
-            'calle': { title: "🛣️ Red Pública y Acometida", text: "Representa la conexión a la red de acueducto de Chía. El problema del medidor análogo actual es que la empresa solo lo lee cada 30 días, haciendo imposible detectar fugas a tiempo. Nuestro sistema IoT se instala después de este punto." },
-            'iot': { title: "💻 Nodo Central IoT (Entrada de la casa)", text: "Caja de paso estanca IP65. Aquí el agua empuja el sensor Hall (YF-S201). La señal eléctrica viaja al optoacoplador PC817 para eliminar ruido inductivo, protegiendo al ESP32 que procesa el algoritmo a 3.3V y envía los datos por Wi-Fi." },
-            'normal': { title: "🚿 Uso Legítimo (Baño/Cocina)", text: "Consumos habituales de los residentes. Se caracterizan por tener un caudal alto (ej. 8 a 15 L/min) pero una duración corta o controlada. El algoritmo está diseñado para no generar falsas alarmas durante duchas o lavado de ropa." },
-            'cloud': { title: "☁️ Almacenamiento en la Nube", text: "Base de datos remota que recibe tramas MQTT/JSON de 64 bytes por minuto. Permite generar analítica de datos e históricos para que la familia monitoree su huella hídrica desde cualquier celular." },
-            'sala': { title: "📟 Panel H-Inclusión (Área Social)", text: "Ubicado en la sala o pasillo visible. Una pantalla OLED muestra números grandes de alto contraste. Si hay fuga, el Buzzer emite sonido a 2.5 kHz y un LED parpadea en rojo. Diseñado éticamente para proteger las finanzas de personas con diversidad funcional visual/auditiva o adultos mayores." },
-            'fuga': { title: "🚽 El enemigo oculto: La Microfuga", text: "El 70% del desperdicio residencial ocurre por válvulas de inodoros dañadas. Es silencioso y genera un caudal bajo (ej. 0.35 L/min) pero infinito. El ESP32 detecta que la tubería lleva más de 40 minutos seguidos (10s en el simulador) sin detenerse, disparando la emergencia." }
+            'calle': { title: "🛣️ Red Pública y Acometida", text: "Representa la conexión a la red de acueducto de Chía. El problema del medidor análogo actual es que la empresa solo lo lee cada 30 días, haciendo imposible detectar fugas a tiempo. Nuestro sistema IoT resuelve esta brecha instalándose internamente." },
+            'iot': { title: "💻 Nodo Central IoT (Diseño de Jesús Rojas)", text: "Caja estanca IP65. Aquí el agua empuja el sensor Hall (YF-S201). La señal eléctrica viaja al optoacoplador PC817 para aislar el ruido eléctrico y proteger al ESP32. El microcontrolador ejecuta la matemática y envía los datos por Wi-Fi." },
+            'normal': { title: "🚿 Uso Legítimo (Baño/Cocina)", text: "Consumos habituales de los residentes. Se caracterizan por tener un caudal alto (ej. 8 a 15 L/min) pero una duración corta o controlada. El algoritmo descarta estos flujos para evitar falsas alarmas." },
+            'cloud': { title: "☁️ Almacenamiento en la Nube", text: "Base de datos remota que recibe tramas MQTT/JSON de 64 bytes por minuto. Si el internet falla, el ESP32 guarda los datos en su memoria Flash interna (Buffer SPIFFS), garantizando hasta 11 días de resiliencia." },
+            'sala': { title: "📟 Panel H-Inclusión (Área Social)", text: "Ubicado en la sala. Una pantalla OLED muestra números de alto contraste. Si hay fuga, el Buzzer emite un sonido a 2.5 kHz y un LED parpadea en rojo. Diseñado éticamente para proteger a personas con diversidad funcional visual/auditiva." },
+            'fuga': { title: "🚽 El enemigo oculto: La Microfuga", text: "El 70% del desperdicio residencial ocurre por válvulas de inodoros dañadas. Es silencioso y genera un caudal bajo (ej. 0.35 L/min) pero infinito. El ESP32 detecta que el flujo no se ha detenido en el tiempo límite, disparando la emergencia." }
         };
 
         function openInfo(key) {
@@ -209,7 +226,7 @@
         function closeInfo() { document.getElementById('infoModal').style.display = 'none'; }
         window.onclick = function(e) { if(e.target == document.getElementById('infoModal')) closeInfo(); }
 
-        let caudal = 0; let volumen = 142.5; let tiempoContinuo = 0;
+        let caudal = 0; let volumen = 142.5; let tiempoContinuo = 0; let desperdicioFuga = 0;
         let limiteFugaSimulada = 10; let isAlarmaActiva = false;
         let normalTimer; let audioCtx; let oscillator; let gainNode;
 
@@ -223,7 +240,6 @@
             oscillator.type = 'square';
             oscillator.frequency.value = 2500;
             
-            // Efecto Sirena intermitente continuo
             gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
             setInterval(() => {
                 if(isAlarmaActiva) {
@@ -251,6 +267,7 @@
             document.getElementById('flowIoT').classList.remove('active', 'leak-flow');
             document.getElementById('sensorIcon').innerText = "⚙️";
             document.getElementById('buzzerIcon').innerText = "🔈";
+            document.getElementById('wasteTracker').style.display = "none";
         }
 
         function simularLavamanos() {
@@ -278,6 +295,8 @@
             document.getElementById('flowStreet').classList.add('leak-flow');
             document.getElementById('flowIoT').classList.add('leak-flow');
             document.getElementById('timerInfo').style.color = "var(--yellow)";
+            document.getElementById('wasteTracker').style.display = "block";
+            desperdicioFuga = 0;
         }
 
         function detenerFlujo(auto = true) {
@@ -287,7 +306,7 @@
             document.getElementById("statusBadge").style.backgroundColor = "var(--green)";
             document.getElementById("statusBadge").style.color = "#000";
             document.getElementById("statusBadge").innerText = "SISTEMA EN REPOSO";
-            document.getElementById('timerInfo').innerText = auto ? "Corte automático. Sin alarmas." : "Cierre manual ejecutado.";
+            document.getElementById('timerInfo').innerText = auto ? "Corte automático (Uso Legítimo). Sin alarmas." : "Cierre general ejecutado.";
             document.getElementById('timerInfo').style.color = "var(--text-muted)";
         }
 
@@ -300,18 +319,18 @@
                 document.getElementById('flowStreet').classList.add('active');
                 document.getElementById('flowIoT').classList.add('active');
                 
-                // Rotación del sensor
                 let rot = (tiempoContinuo * 50) % 360;
                 document.getElementById('sensorIcon').style.transform = `rotate(${rot}deg)`;
                 
                 if (caudal === 0.35) {
+                    desperdicioFuga += (caudal / 60);
                     document.getElementById("timerInfo").innerText = `Fuga Oculta Detectada... Vigilando: ${tiempoContinuo}s / ${limiteFugaSimulada}s`;
+                    document.getElementById('wasteTracker').innerText = `Desperdicio Acumulado: ${desperdicioFuga.toFixed(3)} Litros`;
                 }
             } else {
                 document.getElementById('sensorIcon').style.transform = `rotate(0deg)`;
             }
 
-            // ALARMA
             if (caudal === 0.35 && tiempoContinuo >= limiteFugaSimulada && !isAlarmaActiva) {
                 isAlarmaActiva = true;
                 document.getElementById('zoneHInclusion').classList.add('zone-alarm');
@@ -326,7 +345,6 @@
                 playAlarma();
             }
 
-            // Actualizar textos
             document.getElementById("caudalVal").innerText = caudal.toFixed(2);
             document.getElementById("frecuenciaVal").innerText = `Señal del PC817: ${frecuencia.toFixed(1)} Hz`;
             document.getElementById("volumenVal").innerText = volumen.toFixed(2);
