@@ -17,12 +17,16 @@
         }
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        h1, h2, h3 { margin: 0 0 10px 0; }
+        h1, h2, h3 { margin: 0 0 10px 0; display: flex; align-items: center; justify-content: center; gap: 10px;}
         
         /* HEADER */
         .header { text-align: center; width: 100%; border-bottom: 2px solid var(--green); padding-bottom: 10px; margin-bottom: 20px; }
         .badge { background: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.9em; margin: 0 10px; border: 1px solid #555;}
         
+        /* BOTÓN DE INFORMACIÓN (i) */
+        .info-btn { display: inline-flex; align-items: center; justify-content: center; background: #444; color: #fff; border-radius: 50%; width: 22px; height: 22px; font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.3s; border: 1px solid #777; font-family: serif; }
+        .info-btn:hover { background: var(--blue); border-color: var(--blue); box-shadow: 0 0 10px var(--blue); transform: scale(1.1);}
+
         /* CONTROLES */
         .controls { display: flex; gap: 15px; margin-bottom: 30px; }
         button { padding: 12px 20px; font-size: 1.1em; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
@@ -32,16 +36,16 @@
         .btn-stop { background-color: #555; color: white; }
 
         /* ARQUITECTURA VISUAL */
-        .architecture { display: flex; justify-content: center; align-items: center; gap: 15px; width: 100%; max-width: 1000px; margin-bottom: 40px; background: var(--card-bg); padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .architecture { display: flex; justify-content: center; align-items: center; gap: 15px; width: 100%; max-width: 1000px; margin-bottom: 40px; background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid #333;}
         .node { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 140px; }
         .node .icon { font-size: 3em; margin-bottom: 10px; }
-        .node .label { font-size: 0.8em; color: var(--text-muted); font-weight: bold; }
+        .node .label { font-size: 0.85em; color: var(--text-muted); font-weight: bold; display: flex; align-items: center; gap: 5px;}
         
         /* ANIMACIONES DE CONEXIÓN */
         .connection { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 80px; position: relative; }
         .arrow { width: 100%; height: 4px; background-color: #555; position: relative; }
         .arrow::after { content: ''; position: absolute; right: 0; top: -4px; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-left: 10px solid #555; }
-        .signal { font-size: 0.7em; color: var(--text-muted); margin-bottom: 5px; text-align: center; }
+        .signal { font-size: 0.75em; color: var(--text-muted); margin-bottom: 5px; text-align: center; }
         
         /* ESTADOS ACTIVOS ANIMADOS */
         .flowing-water { background: repeating-linear-gradient(90deg, var(--blue) 0%, #0d47a1 50%, var(--blue) 100%); background-size: 200% 100%; animation: moveWater 1s linear infinite; }
@@ -54,7 +58,7 @@
 
         /* DASHBOARD */
         .dashboard { display: flex; gap: 20px; width: 100%; max-width: 1000px; }
-        .card { background-color: var(--card-bg); border-radius: 12px; padding: 25px; flex: 1; text-align: center; box-shadow: 0 8px 16px rgba(0,0,0,0.5); transition: all 0.3s ease;}
+        .card { background-color: var(--card-bg); border-radius: 12px; padding: 25px; flex: 1; text-align: center; box-shadow: 0 8px 16px rgba(0,0,0,0.5); transition: all 0.3s ease; border: 1px solid #333;}
         .value { font-size: 3em; font-weight: bold; margin: 15px 0; font-variant-numeric: tabular-nums; }
         .color-green { color: var(--green); }
         .color-blue { color: var(--blue); }
@@ -66,8 +70,17 @@
         .status-danger { background-color: var(--red); color: white; }
 
         @keyframes alarmBlink { 0% { box-shadow: inset 0 0 20px var(--red); } 50% { box-shadow: inset 0 0 0px transparent; } 100% { box-shadow: inset 0 0 20px var(--red); } }
-        
         .timer-info { font-size: 0.9em; color: var(--yellow); margin-top: 10px; }
+
+        /* MODAL (VENTANA EMERGENTE) */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(5px);}
+        .modal { background: #222; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; border: 1px solid var(--blue); position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); animation: slideUp 0.3s ease-out;}
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #aaa; transition: 0.2s;}
+        .close-btn:hover { color: var(--red); }
+        .modal-title { color: var(--blue); margin-top: 0; border-bottom: 1px solid #444; padding-bottom: 10px; text-align: left; justify-content: flex-start;}
+        .modal-body { color: #ddd; line-height: 1.6; margin-top: 15px; font-size: 1.05em; text-align: justify;}
+        
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0;} to { transform: translateY(0); opacity: 1;} }
     </style>
 </head>
 <body>
@@ -92,7 +105,7 @@
     <div class="architecture">
         <div class="node">
             <div class="icon">🚰</div>
-            <div class="label">Tubería Principal</div>
+            <div class="label">Tubería <div class="info-btn" onclick="openInfo('tuberia')">i</div></div>
         </div>
         
         <div class="connection">
@@ -102,18 +115,18 @@
 
         <div class="node">
             <div class="icon">⚙️</div>
-            <div class="label">Sensor YF-S201</div>
+            <div class="label">YF-S201 <div class="info-btn" onclick="openInfo('sensor')">i</div></div>
         </div>
 
         <div class="connection">
-            <div class="signal" id="freqLabel">0 Hz</div>
+            <div class="signal" id="freqLabel">0.0 Hz</div>
             <div class="arrow" id="elecAnim"></div>
         </div>
 
-        <div class="node" style="border: 1px solid #555; padding: 10px; border-radius: 10px; background: #222;">
+        <div class="node" style="border: 1px solid #555; padding: 10px; border-radius: 10px; background: #2a2a2a;">
             <div class="icon">💻</div>
-            <div class="label">ESP32 + PC817</div>
-            <div style="font-size: 0.7em; color:var(--green)">Calculando...</div>
+            <div class="label">ESP32+PC817 <div class="info-btn" onclick="openInfo('esp32')">i</div></div>
+            <div style="font-size: 0.7em; color:var(--green)">Procesando...</div>
         </div>
 
         <div class="connection">
@@ -123,26 +136,26 @@
 
         <div class="node">
             <div class="icon">☁️</div>
-            <div class="label">Cloud / Nube</div>
+            <div class="label">Cloud / Nube <div class="info-btn" onclick="openInfo('cloud')">i</div></div>
         </div>
     </div>
 
     <!-- DASHBOARD -->
     <div class="dashboard">
         <div class="card">
-            <h3>Caudal Instantáneo</h3>
+            <h3>Caudal <div class="info-btn" onclick="openInfo('caudal')">i</div></h3>
             <div class="value color-green"><span id="caudalVal">0.00</span> <span style="font-size: 0.4em;">L/min</span></div>
-            <p>Umbral de detección: > 0.30 L/min</p>
+            <p>Umbral detección: > 0.30 L/min</p>
         </div>
 
         <div class="card">
-            <h3>Volumen Acumulado</h3>
+            <h3>Volumen <div class="info-btn" onclick="openInfo('volumen')">i</div></h3>
             <div class="value color-blue"><span id="volumenVal">142.50</span> <span style="font-size: 0.4em;">L</span></div>
             <p>Memoria Local SPIFFS: OK</p>
         </div>
 
         <div class="card alert-card" id="alertCard">
-            <h3>Estado del Sistema</h3>
+            <h3>Estado del Sistema <div class="info-btn" onclick="openInfo('estado')">i</div></h3>
             <div style="margin-top: 20px;">
                 <div class="status-badge" id="statusBadge">NORMAL</div>
             </div>
@@ -150,17 +163,72 @@
         </div>
     </div>
 
+    <!-- VENTANA EMERGENTE (MODAL) -->
+    <div class="modal-overlay" id="infoModal">
+        <div class="modal">
+            <div class="close-btn" onclick="closeInfo()">&times;</div>
+            <h2 class="modal-title" id="modalTitle">Título</h2>
+            <div class="modal-body" id="modalBody">
+                Contenido dinámico...
+            </div>
+        </div>
+    </div>
+
     <!-- LÓGICA DE PROGRAMACIÓN (JAVASCRIPT) -->
     <script>
-        // Variables de ingeniería
-        let caudal = 0; // L/min
-        let volumen = 142.5; // Litros
-        let tiempoContinuo = 0; // Segundos
-        let limiteFugaSimulada = 10; // 10 segundos en la simulación equivalen a 40 mins reales
-        let isAlarmaActiva = false;
-        let intervalo;
-        
-        // Contexto de audio para H-Inclusión (Buzzer 2.5kHz)
+        // DICCIONARIO DE INFORMACIÓN TÉCNICA (Lo que sale al presionar la i)
+        const descripciones = {
+            'tuberia': {
+                title: "🚰 Captación Hidráulica",
+                text: "Representa la tubería principal de la vivienda en el municipio de Chía. El sistema no es intrusivo a gran escala, pero requiere acoplar el sensor en serie para aprovechar la energía cinética del agua (física de fluidos)."
+            },
+            'sensor': {
+                title: "⚙️ Sensor de Efecto Hall YF-S201",
+                text: "Transductor que opera a 5VDC. Contiene un rotor magnético que, al ser empujado por el agua, genera una onda cuadrada. Según la hoja técnica, tiene un factor de conversión K = 7.5 Hz/(L/min), lo que significa que genera 450 pulsos por cada litro que pasa."
+            },
+            'esp32': {
+                title: "💻 Procesamiento Central y Aislamiento",
+                text: "Bloque crítico del diseño. El microcontrolador ESP32 opera a 3.3V. Para evitar que se queme con los 5V del sensor, los pulsos pasan primero por un optoacoplador PC817 (aislamiento galvánico). El ESP32 ejecuta interrupciones de hardware (ISR) para contar cada pulso con precisión milimétrica."
+            },
+            'cloud': {
+                title: "☁️ Telemetría y Edge Computing",
+                text: "Los datos matemáticos se empaquetan en una trama JSON de 64 bytes y se envían vía Wi-Fi usando el protocolo MQTT. Si el internet falla, el ESP32 guarda los datos en su memoria Flash interna (Buffer SPIFFS), garantizando hasta 11 días de resiliencia operativa sin perder información."
+            },
+            'caudal': {
+                title: "📊 Cálculo de Caudal Instantáneo",
+                text: "Magnitud procesada matemáticamente cada segundo (Δt = 1s). Si este valor supera el umbral paramétrico de 0.30 L/min (equivalente a un goteo rápido o microfuga silenciosa), el sistema inicia el temporizador de vigilancia para descartar falsos positivos."
+            },
+            'volumen': {
+                title: "🛢️ Cálculo de Volumen Acumulado",
+                text: "Resultado de la integración numérica discreta del caudal en el tiempo. Suma los litros exactos consumidos en el día. Su precisión matemática es crucial para alinear la facturación real con el ODS 6 (Agua limpia y saneamiento)."
+            },
+            'estado': {
+                title: "🚨 Control Lógico y H-Inclusión",
+                text: "El corazón del diseño inclusivo. Si el caudal supera el umbral ininterrumpidamente por el tiempo crítico (simulado en 10s, real 40 min), se declara FUGA. El sistema dispara alertas sensoriales locales: destello visual rojo intermitente y un zumbido penetrante a 2.5 kHz. Diseñado empáticamente para adultos mayores y personas con discapacidad visual/auditiva."
+            }
+        };
+
+        function openInfo(key) {
+            document.getElementById('modalTitle').innerText = descripciones[key].title;
+            document.getElementById('modalBody').innerText = descripciones[key].text;
+            document.getElementById('infoModal').style.display = 'flex';
+        }
+
+        function closeInfo() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
+        // Cierra el modal si se hace clic afuera de la caja
+        window.onclick = function(event) {
+            let modal = document.getElementById('infoModal');
+            if (event.target == modal) {
+                closeInfo();
+            }
+        }
+
+        // LOGICA DEL SIMULADOR
+        let caudal = 0; let volumen = 142.5; let tiempoContinuo = 0;
+        let limiteFugaSimulada = 10; let isAlarmaActiva = false;
         let audioCtx;
 
         function reproducirBuzzer() {
@@ -171,10 +239,9 @@
             const gainNode = audioCtx.createGain();
             
             oscillator.type = 'square';
-            oscillator.frequency.value = 2500; // 2.5 kHz documentado en el trabajo
+            oscillator.frequency.value = 2500; // 2.5 kHz
             
-            // Sonido intermitente
-            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); // Volumen
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
             
             oscillator.connect(gainNode);
@@ -184,37 +251,22 @@
             oscillator.stop(audioCtx.currentTime + 0.3);
         }
 
-        // Funciones de simulación
-        function simularNormal() {
-            caudal = 8.5; // Duchándose
-            actualizarUI();
-        }
-
-        function simularFuga() {
-            caudal = 0.35; // Goteo constante
-            actualizarUI();
-        }
-
+        function simularNormal() { caudal = 8.5; actualizarUI(); }
+        function simularFuga() { caudal = 0.35; actualizarUI(); }
         function detenerFlujo() {
-            caudal = 0;
-            tiempoContinuo = 0;
-            isAlarmaActiva = false;
+            caudal = 0; tiempoContinuo = 0; isAlarmaActiva = false;
             document.getElementById("alertCard").classList.remove("alert-active");
             document.getElementById("statusBadge").className = "status-badge";
             document.getElementById("statusBadge").innerText = "NORMAL";
             actualizarUI();
         }
 
-        // Bucle principal de procesamiento (Simulando el ESP32)
-        intervalo = setInterval(() => {
-            // Cálculos físicos
-            let frecuenciaHz = caudal * 7.5; // K = 7.5
+        setInterval(() => {
+            let frecuenciaHz = caudal * 7.5;
             
             if (caudal > 0) {
-                volumen += (caudal / 60); // Integra el volumen por segundo
+                volumen += (caudal / 60);
                 tiempoContinuo++;
-                
-                // Animaciones
                 document.getElementById("pipeAnim").classList.add("flowing-water");
                 document.getElementById("elecAnim").classList.add("pulsing-electrical");
                 document.getElementById("wifiSignal").classList.add("wifi-active");
@@ -224,7 +276,6 @@
                 document.getElementById("wifiSignal").classList.remove("wifi-active");
             }
 
-            // Lógica de detección de fugas (Si supera 0.3 L/min por más de 10 seg simulados)
             if (caudal >= 0.30 && tiempoContinuo >= limiteFugaSimulada) {
                 if (!isAlarmaActiva) {
                     isAlarmaActiva = true;
@@ -232,10 +283,9 @@
                     document.getElementById("statusBadge").className = "status-badge status-danger";
                     document.getElementById("statusBadge").innerText = "¡FUGA DETECTADA!";
                 }
-                reproducirBuzzer(); // H-Inclusión Sonora
+                reproducirBuzzer();
             }
 
-            // Actualizar textos en pantalla
             document.getElementById("caudalVal").innerText = caudal.toFixed(2);
             document.getElementById("volumenVal").innerText = volumen.toFixed(2);
             document.getElementById("freqLabel").innerText = frecuenciaHz.toFixed(1) + " Hz";
@@ -245,10 +295,8 @@
             } else {
                 document.getElementById("timerInfo").innerText = `Sistema en reposo`;
             }
+        }, 1000);
 
-        }, 1000); // 1000 ms = 1 segundo real
-
-        // Arrancar con interfaz limpia
         actualizarUI();
         function actualizarUI() {}
     </script>
